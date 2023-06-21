@@ -1,0 +1,15 @@
+body {
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 400px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
