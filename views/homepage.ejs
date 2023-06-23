@@ -1,57 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>White-labelled Notification</title>
-
-  <!-- Include Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <title>White-labelled-notification</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Send White-labelled Notification</h1>
-  
-    <form action="/send-notification" method="POST">
-      <div class="form-group">
-        <label for="sender">Sender:</label>
-        <input type="text" id="sender" name="sender" class="form-control" placeholder="Enter sender name" required>
-      </div>
-
-      <div class="form-group">
-        <label for="receiver">Receiver:</label>
-        <input type="text" id="receiver" name="receiver" class="form-control" placeholder="Enter Receiver name" required>
-      </div>
-
-      <div class="form-group">
-        <label for="product">Product Name</label>
-        <input type="text" id="product" name="product" class="form-control" placeholder="Enter Product name" required>
-      </div>
-
-      <div class="form-group">
-        <label for="Email">Email:</label>
-        <input type="email" id="Email" name="Email" class="form-control" placeholder="Enter Receiver's mail" required>
-      </div>
-
-      <div class="form-group">
-        <label for="phone">Mobile number:</label>
-        <input type="phone" id="phone" name="phone" class="form-control" placeholder="Receiver's country code + phone number" required>
-      </div>
-
-      <div class="form-group">
-        <label for="orderno">order number:</label>
-        <input type="text" id="orderno" name="orderno" class="form-control" placeholder="Enter Receiver's order number" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" class="form-control" placeholder="Enter notification message" rows="4" required></textarea>
-      </div>
-      
-      <button type="submit" class="btn btn-primary">Send Notification</button>
-    </form>
+    <div class="form">
+      <h1>White-labelled-notifications</h1>
+      <form action="/send-notification" method="POST">
+        <div class="form-group">
+          <label for="user_id">User ID:</label>
+          <input type="text" id="user_id" name="user_id" placeholder="Nikita_01" required>
+        </div>
+        <div class="form-group">
+          <label for="product_id">Product ID:</label>
+          <input type="text" id="product_id" name="product_id" placeholder="PID-123" required>
+        </div>
+        <div class="form-group">
+          <label for="order_no">Order No:</label>
+          <input type="text" id="order_no" name="order_no" placeholder="A5363" required>
+        </div>
+        <div class="form-group">
+          <label for="Tenant">Tenant Id:</label>
+          <input type="text" id="Tenant" name="tenant_id" placeholder="suprsend" required oninput="validateBrandID()">
+        </div>
+        <div class="form-group">
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" placeholder="Fragile order"></textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Submit">
+        </div>
+      </form>
+    </div>
+    <div class="options">
+      <h2>Add to Database</h2>
+      <ul>
+        <li><a href="/Add-Tenants" class="button button-tenants">Add Tenant</a></li>
+        <li><a href="/Add-Users" class="button button-users">Add User</a></li>
+        <li><a href="/Add-Products" class="button button-Product">Add Product</a></li>
+      </ul>
+    </div>
   </div>
-
-  <!-- Include Bootstrap JS (optional) -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <div class="container3">
+    <a class="github" href="https://github.com/SuprSend-NotificationAPI"  target="_blank"></a>
+    <a class="suprsend" href="https://www.suprsend.com"  target="_blank"></a>
+   </div>  
+   <script>
+    function validateBrandID() {
+     var brandIDInput = document.getElementById("Tenant");
+     var brandIDValue = brandIDInput.value;
+     brandIDInput.value = brandIDValue.replace(/[^a-z0-9_-]/g, "").toLowerCase();
+   }
+     </script>
 </body>
 </html>
