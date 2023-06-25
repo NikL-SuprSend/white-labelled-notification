@@ -110,13 +110,14 @@ app.post("/AddProducts",function(req,res){
 
 app.post("/AddTenants",function(req,res){
   const {brand_id,brand_name,logo_url,website,company_name} = req.body;
+  console.log(logo_url);
   brand_payload = {
     "brand_id": brand_id,
     "brand_name": brand_name,
     "logo": logo_url,
-    "primary_color": "#ff0000",
-    "secondary_color": "#00ff00",
-    "tertiary_color": "#0000ff",
+    "primary_color": "#000000",
+    "secondary_color": "#000000",
+    "tertiary_color": "#000000",
     "social_links": {
       "website": website,
       "facebook": "https://www.facebook.com/"+company_name,
@@ -138,7 +139,7 @@ app.post("/AddTenants",function(req,res){
 /****************************************** Sending Notifications ***************************************/
 
 app.post("/send-notification", async (req, res) => {
-  const { user_id, product_id, order_no, message, tenant_id } = req.body;
+  const { user_id, product_id, order_no, date, tenant_id } = req.body;
   let user_phone = "",user_email = "",user_name = "";
   let product_name = "",product_category = "",product_price = "";
 
@@ -193,9 +194,8 @@ app.post("/send-notification", async (req, res) => {
         "name":user_name,
         "product":product_name,
         "order_no" : order_no,
-        "message" : message,
         "Product_price" : product_price,
-        "Date":"30/06/2023",
+        "Date":date,
     }
   }
 
