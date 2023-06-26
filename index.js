@@ -42,11 +42,29 @@ app.get("/Add-Products",function(req, res){
     res.render("AddProduct");
 });
 
+app.get("/show-products", async function(req, res) {
+  try {
+    const products = await Product.find({}, 'product_id product_name');
+    const productArray = products.map(product => {
+      return {
+        product_id: product.product_id,
+        product_name: product.product_name
+      };
+    });
+    res.render("showproducts",{
+      infoarr : productArray
+    })
+  } catch (error) {
+    console.error('Error retrieving products:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 /****************************************** Adding Users  ***************************************/
 
 app.post("/AddUsers",function(req,res){
-  const {username,name,email,phone} = req.body;
+  const {name,email,phone} = req.body;
+   const username = email;
    const newUser = new User({
     username: username,
     name : name,
@@ -109,15 +127,14 @@ app.post("/AddProducts",function(req,res){
 /****************************************** Adding Tenants to suprsend ***************************************/
 
 app.post("/AddTenants",function(req,res){
-  const {brand_id,brand_name,logo_url,website,company_name} = req.body;
-  console.log(logo_url);
+  const {brand_id,brand_name,logo_url,website,company_name,primaryColor,secondaryColor,tertiaryColor} = req.body;
   brand_payload = {
     "brand_id": brand_id,
     "brand_name": brand_name,
     "logo": logo_url,
-    "primary_color": "#000000",
-    "secondary_color": "#000000",
-    "tertiary_color": "#000000",
+    "primary_color": primaryColor,
+    "secondary_color": secondaryColor,
+    "tertiary_color": tertiaryColor,
     "social_links": {
       "website": website,
       "facebook": "https://www.facebook.com/"+company_name,
@@ -174,7 +191,7 @@ app.post("/send-notification", async (req, res) => {
 {
 
     const workflow_body = {
-    "name": "Developer Testing - white labelled notifcation",
+    "name": "White labeled notification",
     "template": "suprsend-white-labelled-notification-2",
     "notification_category": "transactional",
     "users": [
@@ -198,12 +215,24 @@ app.post("/send-notification", async (req, res) => {
         "Date":date,
     }
   }
-
+  let check = true;
   const wf = new Workflow(workflow_body,{brand_id : tenant_id });
   const response =  supr_client.trigger_workflow(wf) 
-  response.then((res) => console.log("response", res));  
-
-  res.render("Alerts/notificationsent.ejs")
+  response.then((res) =>{ 
+    console.log("response", res)
+    if(res.success===true && res.status_code==202){
+      check = true;
+    }
+    else{
+      check = false;
+    }
+  });  
+  if(check){
+     res.render("Alerts/notificationsent.ejs")
+  }
+  else {
+    res.render("Alerts/notsent.ejs")
+  }
 }
   } catch (err) {
     console.log(err);

@@ -1,0 +1,39 @@
+<style>
+
+html {
+  font-family: Arial, sans-serif;
+  background-color: #E4E9FD;
+  background-image: -webkit-linear-gradient(65deg, #66b75fc9 50%, #a5f3a85a 50%);
+  min-height: 100%;
+}
+    table {
+      width: 60%;
+      border-collapse: collapse;
+      background-attachment: white;
+    }
+  
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      background-color: white;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+  
+  <table>
+    <h1>Product List</h1>
+    <tr>
+      <th>Product ID</th>
+      <th>Product Name</th>
+    </tr>
+    <% infoarr.forEach(function(item) { %>
+      <tr>
+        <td><%= item.product_id %></td>
+        <td><%= item.product_name %></td>
+      </tr>
+    <% }) %>
+  </table>
+  
