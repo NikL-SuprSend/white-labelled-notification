@@ -126,7 +126,7 @@ app.post("/AddProducts",function(req,res){
 
 /****************************************** Adding Tenants to suprsend ***************************************/
 
-app.post("/AddTenants",function(req,res){
+app.post("/AddTenants",async function(req,res){
   const {brand_id,brand_name,logo_url,website,company_name,primaryColor,secondaryColor,tertiaryColor} = req.body;
   brand_payload = {
     "brand_id": brand_id,
@@ -148,8 +148,8 @@ app.post("/AddTenants",function(req,res){
     }
    }   
 
-  const response = supr_client.brands.upsert(brand_id, brand_payload); // returns promise
-  response.then((res) => console.log("response", res));
+  const response = await supr_client.brands.upsert(brand_id, brand_payload); // returns promise
+  console.log(response);
   res.redirect("/");
 })
 
